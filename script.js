@@ -150,3 +150,53 @@ function renderCharacters(){
     }
     renderStatus = !renderStatus
 }
+
+const homeworlds = [
+  ...new Set(
+    characters.map((character) =>
+      (character.homeworld ?? "other").toLowerCase()
+    )
+  ),
+];
+
+const radioButtonContainer = document.querySelector(".radioButtonContainer");
+radioButtonContainer.innerHTML = homeworlds
+  .map(
+    (homeworld) =>
+      `
+<div class="form-check text-white">
+  <input class="form-check-input homeworldRadio" type="radio" name="homeworld" id="homeworld-${homeworld}" value="${homeworld}">
+  <label class="form-check-label" for="homeworld-${homeworld}">${homeworld}</label>
+</div>
+`
+  )
+  .join("");
+
+radioButtonContainer.addEventListener("change", function (event) {
+  if (event.target.classList.contains("form-check-input")) {
+    const selectedHomeworld = event.target.value;
+    const selectedHomeworldsCharacters = characters.filter((character) => {
+      const homeworld = character.homeworld
+        ? character.homeworld.toLowerCase()
+        : "other";
+      return homeworld === selectedHomeworld;
+    });
+    const row = document.querySelector(".row");
+    row.innerHTML = selectedHomeworldsCharacters
+      .map((character) => {
+        return `
+        <div class="col-lg-3 col-md-6 col-sm-12 card">
+        <img src="${character.pic}">
+        <h2 class="card-title">${character.name}</h2>
+        <p class="card-text">Memleket: ${character.homeworld || "Unknown"}</p>
+        </div>
+        
+        `;
+      })
+      .join("");
+    charactersActionButton.textContent = "Karakterleri Gizle";
+    charactersActionButton.style.backgroundColor = "#0aede5";
+  }
+  renderStatus = false;
+});
+

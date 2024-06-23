@@ -1,5 +1,5 @@
 .background-img {
-    background-image: url(star-wars-death-star-at-at-space-wallpaper-preview.jpg);
+    background-image: url(star-wars-background-img.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -39,4 +39,12 @@
     color: white !important;
     
     
+}
+
+.radioButtonContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 5%;
 }
